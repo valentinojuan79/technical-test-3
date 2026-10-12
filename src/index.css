@@ -66,6 +66,13 @@ button:hover {
   background: #28a745;
 }
 
+.empty-state {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
 .todo-item {
   display: flex;
   align-items: center;

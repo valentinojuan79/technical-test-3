@@ -141,33 +141,41 @@ function App() {
 
       <div className="todo-list">
         {/* Issue 13: Tidak ada handling untuk empty state */}
-        {filteredTodos.map((todo) => (
-          // Issue 14: Key menggunakan index bisa lebih baik dengan ID
-          <div
-            key={todo.id}
-            className={`todo-item ${todo.completed ? "completed" : ""}`}
-          >
-            <input
-              id={`todo-${todo.id}`}
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-            />
-
-            {/* Issue 15: Potential XSS jika text dari user input */}
-            <label htmlFor={`todo-${todo.id}`} className="todo-text">
-              {todo.text}
-            </label>
-
-            <button
-              className="delete-btn"
-              aria-label={`Delete ${todo.text}`}
-              onClick={() => deleteTodo(todo.id)}
+        {filteredTodos.length === 0 ? (
+          <p className="empty-state">
+            {todos.length === 0
+              ? "No todos yet. Add your first todo!"
+              : "No matching todos found."}
+          </p>
+        ) : (
+          filteredTodos.map((todo) => (
+            // Issue 14: Key menggunakan index bisa lebih baik dengan ID
+            <div
+              key={todo.id}
+              className={`todo-item ${todo.completed ? "completed" : ""}`}
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              <input
+                id={`todo-${todo.id}`}
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+              />
+
+              {/* Issue 15: Potential XSS jika text dari user input */}
+              <label htmlFor={`todo-${todo.id}`} className="todo-text">
+                {todo.text}
+              </label>
+
+              <button
+                className="delete-btn"
+                aria-label={`Delete ${todo.text}`}
+                onClick={() => deleteTodo(todo.id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
       </div>
 
       <div className="stats">
