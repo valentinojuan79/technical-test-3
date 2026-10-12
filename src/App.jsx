@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 // Issue 1: Inline API key (security issue)
 
@@ -27,9 +27,9 @@ function App() {
   // Issue 4: useEffect yang terlalu sering run
   useEffect(() => {
     try {
-    localStorage.setItem('todos', JSON.stringify(todos))
+      localStorage.setItem('todos', JSON.stringify(todos))
     } catch (error) {
-    console.error('Failed to save todos:', error)
+      console.error('Failed to save todos:', error)
     }
   }, [todos])
   
@@ -54,31 +54,33 @@ function App() {
   
   // Issue 7: Tidak ada error handling
   const deleteTodo = (id) => {
-  setTodos(prevTodos =>
-    prevTodos.filter(todo => todo.id !== id)
-  )
-}
+    setTodos(prevTodos =>
+      prevTodos.filter(todo => todo.id !== id)
+    )
+  }
   
   const toggleTodo = (id) => {
-  setTodos(prevTodos =>
-    prevTodos.map(todo =>
-      todo.id === id
-        ? { ...todo, completed: !todo.completed }
-        : todo
+    setTodos(prevTodos =>
+      prevTodos.map(todo =>
+        todo.id === id
+          ? { ...todo, completed: !todo.completed }
+          : todo
+      )
     )
-  )
-}
+  }
   
   // Issue 8: Logic filtering yang bisa dipindah ke useMemo
-  const getFilteredTodos = () => {
+  const filteredTodos = useMemo(() => {
     if (filter === 'active') {
       return todos.filter(todo => !todo.completed)
     }
+
     if (filter === 'completed') {
       return todos.filter(todo => todo.completed)
     }
+
     return todos
-  }
+  }, [todos, filter])
   
   // Issue 9: Calculation yang tidak perlu di setiap render
   const stats = {
@@ -132,7 +134,7 @@ function App() {
       
       <div className="todo-list">
         {/* Issue 13: Tidak ada handling untuk empty state */}
-        {getFilteredTodos().map((todo) => (
+        {filteredTodos.map((todo) => (
           // Issue 14: Key menggunakan index bisa lebih baik dengan ID
           <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
             <input 
