@@ -44,20 +44,26 @@ function App() {
       createdAt: new Date().toISOString()
     }
     
-    setTodos([...todos, newTodo])
+    setTodos(prevTodos => [...prevTodos, newTodo])
     setInput('')
   }
   
   // Issue 7: Tidak ada error handling
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
+  setTodos(prevTodos =>
+    prevTodos.filter(todo => todo.id !== id)
+  )
+}
   
   const toggleTodo = (id) => {
-    setTodos(todos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ))
-  }
+  setTodos(prevTodos =>
+    prevTodos.map(todo =>
+      todo.id === id
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    )
+  )
+}
   
   // Issue 8: Logic filtering yang bisa dipindah ke useMemo
   const getFilteredTodos = () => {
