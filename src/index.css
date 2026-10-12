@@ -72,19 +72,24 @@ button:hover {
   opacity: 0.6;
 }
 
-.todo-item.completed span {
+.todo-item.completed .todo-text {
   text-decoration: line-through;
 }
 
 .todo-item input[type="checkbox"] {
+  flex: 0 0 18px;
   width: 18px;
   height: 18px;
+  padding: 0;
   cursor: pointer;
 }
 
-.todo-item span {
+.todo-item .todo-text {
   flex: 1;
+  min-width: 0;
   color: #333;
+  cursor: pointer;
+  overflow-wrap:anywhere;
 }
 
 .delete-btn {
