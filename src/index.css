@@ -106,7 +106,7 @@ button:hover {
   min-width: 0;
   color: #333;
   cursor: pointer;
-  overflow-wrap:anywhere;
+  overflow-wrap: anywhere;
 }
 
 .delete-btn {

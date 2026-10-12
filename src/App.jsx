@@ -186,7 +186,6 @@ function App() {
       </div>
 
       {/* Issue 16: Debug code yang tertinggal */}
-      {/* {console.log('Rendering with todos:', todos)} */}
     </div>
   );
 }
