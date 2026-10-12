@@ -116,22 +116,24 @@ function App() {
       </div>
 
       {/* Issue 12: Inline styles (inconsistent dengan CSS file) */}
-      <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+      <div className="filter-section">
         <button
+          className={filter === "all" ? "filter-active" : ""}
           onClick={() => setFilter("all")}
-          style={{ background: filter === "all" ? "#28a745" : "#007bff" }}
         >
           All
         </button>
+
         <button
+          className={filter === "active" ? "filter-active" : ""}
           onClick={() => setFilter("active")}
-          style={{ background: filter === "active" ? "#28a745" : "#007bff" }}
         >
           Active
         </button>
+
         <button
+          className={filter === "completed" ? "filter-active" : ""}
           onClick={() => setFilter("completed")}
-          style={{ background: filter === "completed" ? "#28a745" : "#007bff" }}
         >
           Completed
         </button>
