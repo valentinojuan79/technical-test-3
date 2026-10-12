@@ -101,19 +101,22 @@ function App() {
       
       {/* Issue 11: Tidak ada label untuk accessibility */}
       <div className="input-section">
-        <input 
+        <input
+          id="todo-input"
           type="text"
           value={input}
+          aria-label="New todo"
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               addTodo()
             }
-          }}
-          placeholder="What needs to be done?"
-        />
-        <button onClick={addTodo}>Add</button>
-      </div>
+        }}
+        placeholder="What needs to be done?"
+      />
+
+      <button onClick={addTodo}>Add</button>
+    </div>
       
       {/* Issue 12: Inline styles (inconsistent dengan CSS file) */}
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
@@ -142,16 +145,19 @@ function App() {
         {filteredTodos.map((todo) => (
           // Issue 14: Key menggunakan index bisa lebih baik dengan ID
           <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            <input 
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-            />
+              <input 
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+                aria-label={`Mark ${todo.text} as ${todo.completed ? 'incomplete' : 'complete'}`}
+              />
+            
             {/* Issue 15: Potential XSS jika text dari user input */}
             <span>{todo.text}</span>
             <button 
               className="delete-btn"
               onClick={() => deleteTodo(todo.id)}
+              aria-label={`Delete ${todo.text}`}
             >
               Delete
             </button>
